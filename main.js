@@ -10,7 +10,7 @@ let dy = -2;
 let paddleHeight = 10;
 let paddleWidth = 75;
 let paddleX = (canvas.width-paddleWidth)/2;
-let paddleMiddle = (paddleWidth/2);
+let paddleMiddle = (paddleWidth/4);
 
 let rightPressed = false;
 let leftPressed = false;
@@ -91,6 +91,11 @@ function drawBall() {
 }
 function drawPaddle() {
   ctx.beginPath();
+  ctx.rect(paddleX, canvas.height-paddleHeight-10, paddleMiddle, paddleHeight+5);
+  ctx.fillStyle = "#E32800";
+  ctx.fill();
+  ctx.closePath();
+  ctx.beginPath();
   ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
   ctx.fillStyle = "#0095DD";
   ctx.fill();
@@ -142,7 +147,12 @@ function draw() {
   else if(y + dy > canvas.height-ballRadius) {
     if(x > paddleX && x < paddleX + paddleWidth) {
       dy = -dy;
-      
+      console.log(dx)
+      paddleMiddle = (paddleX+paddleWidth/2);
+      console.log(paddleMiddle)
+      if(x < paddleMiddle-paddleMiddle/2 || x > paddleMiddle+paddleMiddle/2 ){
+        dx = -dx
+      }
     }
     else {
       lives--;
